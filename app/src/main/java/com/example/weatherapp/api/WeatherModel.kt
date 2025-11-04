@@ -1,6 +1,6 @@
 package com.example.weatherapp.api
 
-data class weatherModel(
+data class WeatherModel(
     val current: Current,
     val location: Location
 )
