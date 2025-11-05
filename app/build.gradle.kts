@@ -6,9 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.weatherapp"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.weatherapp"
@@ -50,6 +48,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -61,8 +60,10 @@ dependencies {
     val retrofitVersion = "3.0.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+
     implementation("androidx.compose.runtime:runtime-livedata:1.9.4")
     // coil library for  image loading
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
     
 
 }

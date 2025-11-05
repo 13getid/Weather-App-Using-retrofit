@@ -30,11 +30,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil3.compose.AsyncImage
 import com.example.weatherapp.api.NetworkResponse
 import com.example.weatherapp.api.WeatherModel
 
 @Composable
-fun WeatherPage(viewModel: WeatherViewModel){
+fun WeatherPage(viewModel: WeatherViewModel = viewModel()){
     var city by remember {
         mutableStateOf("")
     }
@@ -111,6 +113,10 @@ fun  WeatherDetails(data: WeatherModel){
             fontSize = 56.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
+        )
+        AsyncImage(
+            model = "https:${data.current.condition.icon}",
+            contentDescription = "Condition icon"
         )
 
     }
