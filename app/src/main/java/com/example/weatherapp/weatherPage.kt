@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil3.compose.AsyncImage
+import coil.compose.AsyncImage
 import com.example.weatherapp.api.NetworkResponse
 import com.example.weatherapp.api.WeatherModel
 
@@ -115,10 +116,57 @@ fun  WeatherDetails(data: WeatherModel){
             textAlign = TextAlign.Center
         )
         AsyncImage(
-            model = "https:${data.current.condition.icon}",
+            modifier = Modifier.size(168.dp),
+            model = "https:${data.current.condition.icon}".replace("64*64","128*128"),
             contentDescription = "Condition icon"
         )
+        Text(
+            text = data.current.condition.text,
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center,
+            color = Color.Gray
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Card {
+            Column(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ){
+                    WeatherKeyVal("Humidity",data.current.humidity)
+                    WeatherKeyVal("Wind Speed",data.current.wind_kph +"km/h")
+
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ){
+                    WeatherKeyVal("UV",data.current.uv)
+                    WeatherKeyVal("Participation",data.current.precip_mm + "mm")
+
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ){
+                    WeatherKeyVal("Local Time",data.location.localtime.split("")[1])
+                    WeatherKeyVal("Local Date",data.location.localtime.split("")[0])
+
+                }
+            }}
 
     }
 
+}
+@Composable
+fun WeatherKeyVal(key : String,value: String){
+    Column (
+        modifier = Modifier.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Text(text = value, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Text(text = key, fontWeight = FontWeight.SemiBold, color = Color.Gray)
+    }
 }
